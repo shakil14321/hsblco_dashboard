@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Repository\Admin\ContactMessageRepository;
 use App\Models\ContactMessage;
+use App\Repository\Admin\ContactMessageRepository;
 
 class ContactMessageController extends Controller
 {

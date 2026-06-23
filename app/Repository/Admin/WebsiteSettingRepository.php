@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Repository\Admin;
+namespace App\Repository\Admin;
 
 use App\Models\WebsiteSetting;
 

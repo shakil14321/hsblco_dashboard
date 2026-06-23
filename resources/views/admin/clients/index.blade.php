@@ -101,4 +101,9 @@
             </table>
         </div>
     </div>
+
+
+    <button class="btn btn-secondary">
+        Test DaisyUI
+    </button>
 @endsection

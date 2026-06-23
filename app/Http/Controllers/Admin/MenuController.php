@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Repository\Admin\MenuRepository;
 use App\Http\Requests\Admin\MenuRequest;
 use App\Models\Menu;
+use App\Repository\Admin\MenuRepository;
 
 class MenuController extends Controller
 {

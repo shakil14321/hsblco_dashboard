@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Repository\Admin\CareerRepository;
 use App\Http\Requests\Admin\CareerRequest;
 use App\Models\Career;
+use App\Repository\Admin\CareerRepository;
 
 class CareerController extends Controller
 {

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Repository\Admin\FaqRepository;
 use App\Http\Requests\Admin\FaqRequest;
 use App\Models\Faq;
+use App\Repository\Admin\FaqRepository;
 
 class FaqController extends Controller
 {

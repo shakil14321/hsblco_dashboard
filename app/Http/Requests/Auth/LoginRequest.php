@@ -2,25 +2,20 @@
 
 namespace App\Http\Requests\Auth;
 
-use App\Http\Repository\AuthRepository;
-use App\Http\Requests\Auth\LoginRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
-class LoginController extends Controller
+class LoginRequest extends FormRequest
 {
-    public function __construct(
-        protected AuthRepository $authRepository
-    ) {}
-
-    public function login(LoginRequest $request)
+    public function authorize(): bool
     {
-        if (!$this->authRepository->login($request->validated())) {
-            return back()->withErrors([
-                'email' => 'Invalid credentials'
-            ]);
-        }
+        return true;
+    }
 
-        $request->session()->regenerate();
-
-        return redirect()->route('dashboard');
+    public function rules(): array
+    {
+        return [
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ];
     }
 }

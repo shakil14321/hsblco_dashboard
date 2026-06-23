@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Repository\Admin\BlogRepository;
 use App\Http\Requests\Admin\BlogRequest;
 use App\Models\Blog;
+use App\Repository\Admin\BlogRepository;
 
 class BlogController extends Controller
 {

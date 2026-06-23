@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Repository\Admin\ClientRepository;
 use App\Http\Requests\Admin\ClientRequest;
 use App\Models\Client;
+use App\Repository\Admin\ClientRepository;
 
 class ClientController extends Controller
 {

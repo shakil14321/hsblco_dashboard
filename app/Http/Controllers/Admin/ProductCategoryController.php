@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Repository\Admin\ProductCategoryRepository;
 use App\Http\Requests\Admin\ProductCategoryRequest;
 use App\Models\ProductCategory;
+use App\Repository\Admin\ProductCategoryRepository;
 
 class ProductCategoryController extends Controller
 {

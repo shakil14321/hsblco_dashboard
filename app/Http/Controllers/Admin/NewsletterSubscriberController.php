@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Repository\Admin\NewsletterSubscriberRepository;
 use App\Models\NewsletterSubscriber;
+use App\Repository\Admin\NewsletterSubscriberRepository;
 
 class NewsletterSubscriberController extends Controller
 {

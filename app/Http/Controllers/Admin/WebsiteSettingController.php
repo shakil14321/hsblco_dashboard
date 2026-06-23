@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Repository\Admin\WebsiteSettingRepository;
 use App\Http\Requests\Admin\WebsiteSettingRequest;
+use App\Repository\Admin\WebsiteSettingRepository;
 use Illuminate\Support\Facades\Storage;
 
 class WebsiteSettingController extends Controller

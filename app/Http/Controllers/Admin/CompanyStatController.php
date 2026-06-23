@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Repository\Admin\CompanyStatRepository;
 use App\Http\Requests\Admin\CompanyStatRequest;
 use App\Models\CompanyStat;
+use App\Repository\Admin\CompanyStatRepository;
 
 class CompanyStatController extends Controller
 {

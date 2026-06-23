@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Repository\Admin\TeamMemberRepository;
 use App\Http\Requests\Admin\TeamMemberRequest;
 use App\Models\TeamMember;
+use App\Repository\Admin\TeamMemberRepository;
 
 class TeamMemberController extends Controller
 {

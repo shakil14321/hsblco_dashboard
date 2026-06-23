@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Repository\Admin\HeroSlideRepository;
 use App\Http\Requests\Admin\HeroSlideRequest;
 use App\Models\HeroSlide;
+use App\Repository\Admin\HeroSlideRepository;
 
 class HeroSlideController extends Controller
 {

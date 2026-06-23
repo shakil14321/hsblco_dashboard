@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Repository\Admin\ServiceRepository;
 use App\Http\Requests\Admin\ServiceRequest;
 use App\Models\Service;
+use App\Repository\Admin\ServiceRepository;
 
 class ServiceController extends Controller
 {

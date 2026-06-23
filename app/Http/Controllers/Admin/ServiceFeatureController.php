@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Repository\Admin\ServiceFeatureRepository;
 use App\Http\Requests\Admin\ServiceFeatureRequest;
 use App\Models\ServiceFeature;
+use App\Repository\Admin\ServiceFeatureRepository;
 
 class ServiceFeatureController extends Controller
 {

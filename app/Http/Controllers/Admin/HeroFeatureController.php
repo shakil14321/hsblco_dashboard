@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Repository\Admin\HeroFeatureRepository;
 use App\Http\Requests\Admin\HeroFeatureRequest;
 use App\Models\HeroFeature;
+use App\Repository\Admin\HeroFeatureRepository;
 
 class HeroFeatureController extends Controller
 {
