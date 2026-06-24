@@ -4,11 +4,15 @@
 
     <div class="p-6">
 
-        <div class="bg-white p-6 rounded-xl shadow">
-
-            <h2 class="text-2xl font-bold mb-6">
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
                 Edit Company Stat
             </h2>
+        </div>
+
+        <div
+            class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm
+               dark:border-gray-800 dark:bg-[#182235]">
 
             <form action="{{ route('admin.company-stats.update', $companyStat->id) }}"
                   method="POST">
@@ -19,7 +23,9 @@
                 @include('admin.company-stats.form')
 
                 <div class="mt-6">
-                    <button class="bg-blue-600 text-white px-5 py-2 rounded-lg">
+                    <button
+                        type="submit"
+                        class="inline-flex h-11 items-center justify-center rounded-lg bg-blue-600 px-5 text-sm font-medium text-white transition hover:bg-blue-700">
                         Update
                     </button>
                 </div>

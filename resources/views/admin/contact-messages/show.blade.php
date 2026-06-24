@@ -3,57 +3,79 @@
 @section('content')
     <div class="p-6">
 
-        <div class="bg-white p-6 rounded-xl shadow">
+        <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-[#182235]">
 
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold">Contact Message Details</h2>
+            <div class="mb-6 flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
+                        Contact Message Details
+                    </h2>
+                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                        View sender information and message details
+                    </p>
+                </div>
 
                 <a href="{{ route('admin.contact-messages.index') }}"
-                   class="bg-gray-200 px-5 py-2 rounded-lg">
+                   class="inline-flex h-11 items-center justify-center rounded-lg border border-gray-300 bg-gray-100 px-5 text-sm font-medium text-gray-700 transition hover:bg-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700">
                     Back
                 </a>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+            <div class="grid grid-cols-1 gap-5 md:grid-cols-2 mb-6">
 
-                <div>
-                    <p class="text-sm text-gray-500">Name</p>
-                    <p class="font-semibold">{{ $contactMessage->name }}</p>
+                <div class="rounded-2xl border border-gray-200 bg-gray-50 p-5 dark:border-gray-700 dark:bg-[#111827]">
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Name</p>
+                    <p class="mt-2 font-semibold text-gray-800 dark:text-white">
+                        {{ $contactMessage->name }}
+                    </p>
                 </div>
 
-                <div>
-                    <p class="text-sm text-gray-500">Email</p>
-                    <p class="font-semibold">{{ $contactMessage->email }}</p>
+                <div class="rounded-2xl border border-gray-200 bg-gray-50 p-5 dark:border-gray-700 dark:bg-[#111827]">
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Email</p>
+                    <p class="mt-2 break-all font-semibold text-gray-800 dark:text-white">
+                        {{ $contactMessage->email }}
+                    </p>
                 </div>
 
-                <div>
-                    <p class="text-sm text-gray-500">Phone</p>
-                    <p class="font-semibold">{{ $contactMessage->phone ?? '-' }}</p>
+                <div class="rounded-2xl border border-gray-200 bg-gray-50 p-5 dark:border-gray-700 dark:bg-[#111827]">
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Phone</p>
+                    <p class="mt-2 font-semibold text-gray-800 dark:text-white">
+                        {{ $contactMessage->phone ?? '-' }}
+                    </p>
                 </div>
 
-                <div>
-                    <p class="text-sm text-gray-500">Company Name</p>
-                    <p class="font-semibold">{{ $contactMessage->company_name ?? '-' }}</p>
+                <div class="rounded-2xl border border-gray-200 bg-gray-50 p-5 dark:border-gray-700 dark:bg-[#111827]">
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Company Name</p>
+                    <p class="mt-2 font-semibold text-gray-800 dark:text-white">
+                        {{ $contactMessage->company_name ?? '-' }}
+                    </p>
                 </div>
 
-                <div>
-                    <p class="text-sm text-gray-500">Status</p>
-                    <p class="font-semibold capitalize">{{ $contactMessage->status }}</p>
+                <div class="rounded-2xl border border-gray-200 bg-gray-50 p-5 dark:border-gray-700 dark:bg-[#111827]">
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Status</p>
+
+                    <div class="mt-2">
+                    <span class="rounded-full bg-blue-100 px-3 py-1 text-sm capitalize text-blue-700 dark:bg-blue-500/15 dark:text-blue-400">
+                        {{ $contactMessage->status }}
+                    </span>
+                    </div>
                 </div>
 
-                <div>
-                    <p class="text-sm text-gray-500">Date</p>
-                    <p class="font-semibold">
+                <div class="rounded-2xl border border-gray-200 bg-gray-50 p-5 dark:border-gray-700 dark:bg-[#111827]">
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Date</p>
+                    <p class="mt-2 font-semibold text-gray-800 dark:text-white">
                         {{ $contactMessage->created_at?->format('d M, Y h:i A') }}
                     </p>
                 </div>
 
             </div>
 
-            <div>
-                <p class="text-sm text-gray-500 mb-2">Message</p>
+            <div class="rounded-2xl border border-gray-200 bg-gray-50 p-5 dark:border-gray-700 dark:bg-[#111827]">
+                <h4 class="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                    Message
+                </h4>
 
-                <div class="bg-gray-50 p-5 rounded-lg leading-7">
+                <div class="leading-7 text-gray-700 dark:text-gray-300">
                     {!! nl2br(e($contactMessage->message)) !!}
                 </div>
             </div>
@@ -61,7 +83,7 @@
             <div class="mt-6 flex gap-3">
 
                 <a href="mailto:{{ $contactMessage->email }}"
-                   class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg">
+                   class="inline-flex h-11 items-center justify-center rounded-lg bg-blue-600 px-5 text-sm font-medium text-white transition hover:bg-blue-700">
                     Reply by Email
                 </a>
 
@@ -71,7 +93,8 @@
                     @csrf
                     @method('DELETE')
 
-                    <button class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg">
+                    <button type="submit"
+                            class="inline-flex h-11 items-center justify-center rounded-lg bg-red-600 px-5 text-sm font-medium text-white transition hover:bg-red-700">
                         Delete
                     </button>
                 </form>

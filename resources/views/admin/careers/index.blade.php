@@ -1,93 +1,160 @@
 @extends('layouts.master')
 
 @section('content')
-    <div class="p-6">
 
-        <div class="flex items-center justify-between mb-6">
-            <h2 class="text-2xl font-bold text-gray-900">Careers</h2>
+    <div class="px-6 py-8">
+
+        <div class="mb-6 flex items-center justify-between">
+            <h1 class="text-2xl font-semibold text-gray-800 dark:text-white">
+                Careers
+            </h1>
 
             <a href="{{ route('admin.careers.create') }}"
-               class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg">
+               class="inline-flex items-center rounded-lg bg-blue-600 px-5 py-3 text-sm font-medium text-white hover:bg-blue-700 transition">
                 Add Career
             </a>
         </div>
 
         @if(session('success'))
-            <div class="mb-4 bg-green-100 text-green-700 px-4 py-3 rounded-lg">
+            <div class="mb-5 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-green-700 dark:border-green-800 dark:bg-green-900/20 dark:text-green-400">
                 {{ session('success') }}
             </div>
         @endif
 
-        <div class="bg-white rounded-xl shadow overflow-hidden">
-            <div class="overflow-x-auto">
-                <table class="w-full min-w-[900px] text-sm text-left">
-                    <thead class="bg-slate-100 text-gray-700">
-                    <tr>
-                        <th class="px-5 py-4">Title</th>
-                        <th class="px-5 py-4">Location</th>
-                        <th class="px-5 py-4">Job Type</th>
-                        <th class="px-5 py-4">Salary</th>
-                        <th class="px-5 py-4">Deadline</th>
-                        <th class="px-5 py-4 text-center">Status</th>
-                        <th class="px-5 py-4 text-right">Action</th>
-                    </tr>
-                    </thead>
+        <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-[#101828]">
 
-                    <tbody class="divide-y divide-gray-200">
-                    @forelse($careers as $career)
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-5 py-4 font-medium">{{ $career->title }}</td>
-                            <td class="px-5 py-4">{{ $career->location ?? '-' }}</td>
-                            <td class="px-5 py-4">{{ $career->job_type ?? '-' }}</td>
-                            <td class="px-5 py-4">{{ $career->salary ?? '-' }}</td>
-                            <td class="px-5 py-4">
-                                {{ $career->deadline ? $career->deadline->format('d M, Y') : '-' }}
-                            </td>
-
-                            <td class="px-5 py-4 text-center">
-                                @if($career->status)
-                                    <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs">Active</span>
-                                @else
-                                    <span class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs">Inactive</span>
-                                @endif
-                            </td>
-
-                            <td class="px-5 py-4">
-                                <div class="flex justify-end gap-2 whitespace-nowrap">
-                                    <a href="{{ route('admin.careers.show', $career->id) }}"
-                                       class="bg-slate-600 text-white px-3 py-2 rounded-lg">
-                                        View
-                                    </a>
-
-                                    <a href="{{ route('admin.careers.edit', $career->id) }}"
-                                       class="bg-yellow-500 text-white px-3 py-2 rounded-lg">
-                                        Edit
-                                    </a>
-
-                                    <form action="{{ route('admin.careers.destroy', $career->id) }}"
-                                          method="POST"
-                                          onsubmit="return confirm('Delete this career?')">
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button class="bg-red-600 text-white px-3 py-2 rounded-lg">
-                                            Delete
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="7" class="px-5 py-8 text-center text-gray-500">
-                                No career found.
-                            </td>
-                        </tr>
-                    @endforelse
-                    </tbody>
-                </table>
+            <div class="border-b border-gray-200 px-6 py-5 dark:border-gray-800">
+                <h2 class="text-lg font-semibold text-gray-800 dark:text-white">
+                    Careers Table
+                </h2>
             </div>
+
+            <div class="p-6">
+                <div class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-[#182132]">
+                    <div class="overflow-x-auto">
+
+                        <table class="min-w-full table-fixed">
+
+                            <thead>
+                            <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <th class="w-[17%] px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Title
+                                </th>
+
+                                <th class="w-[14%] px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Location
+                                </th>
+
+                                <th class="w-[14%] px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Job Type
+                                </th>
+
+                                <th class="w-[14%] px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Salary
+                                </th>
+
+                                <th class="w-[14%] px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Deadline
+                                </th>
+
+                                <th class="w-[12%] px-6 py-4 text-center text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Status
+                                </th>
+
+                                <th class="w-[15%] px-6 py-4 text-center text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Action
+                                </th>
+                            </tr>
+                            </thead>
+
+                            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+
+                            @forelse($careers as $career)
+
+                                <tr class="transition hover:bg-gray-50 dark:hover:bg-gray-800/50">
+
+                                    <td class="px-6 py-5 align-middle text-sm font-semibold text-gray-800 dark:text-white">
+                                        {{ $career->title }}
+                                    </td>
+
+                                    <td class="px-6 py-5 align-middle text-sm text-gray-600 dark:text-gray-300">
+                                        {{ $career->location ?? '-' }}
+                                    </td>
+
+                                    <td class="px-6 py-5 align-middle text-sm text-gray-600 dark:text-gray-300">
+                                        {{ $career->job_type ?? '-' }}
+                                    </td>
+
+                                    <td class="px-6 py-5 align-middle text-sm text-gray-600 dark:text-gray-300">
+                                        {{ $career->salary ?? '-' }}
+                                    </td>
+
+                                    <td class="px-6 py-5 align-middle text-sm text-gray-600 dark:text-gray-300">
+                                        {{ $career->deadline ? $career->deadline->format('d M, Y') : '-' }}
+                                    </td>
+
+                                    <td class="px-6 py-5 text-center align-middle">
+                                        @if($career->status)
+                                            <span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700 dark:bg-green-500/15 dark:text-green-400">
+                                            Active
+                                        </span>
+                                        @else
+                                            <span class="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-medium text-red-700 dark:bg-red-500/15 dark:text-red-400">
+                                            Inactive
+                                        </span>
+                                        @endif
+                                    </td>
+
+                                    <td class="px-6 py-5 text-center align-middle">
+                                        <div class="inline-flex items-center justify-center gap-2 whitespace-nowrap">
+
+                                            <a href="{{ route('admin.careers.show', $career->id) }}"
+                                               class="rounded-lg bg-slate-600 px-3 py-2 text-sm font-medium text-white hover:bg-slate-700 transition">
+                                                View
+                                            </a>
+
+                                            <a href="{{ route('admin.careers.edit', $career->id) }}"
+                                               class="rounded-lg bg-amber-500 px-3 py-2 text-sm font-medium text-white hover:bg-amber-600 transition">
+                                                Edit
+                                            </a>
+
+                                            <form action="{{ route('admin.careers.destroy', $career->id) }}"
+                                                  method="POST"
+                                                  onsubmit="return confirm('Delete this career?')">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="submit"
+                                                        class="rounded-lg bg-red-600 px-3 py-2 text-sm font-medium text-white hover:bg-red-700 transition">
+                                                    Delete
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+
+                            @empty
+
+                                <tr>
+                                    <td colspan="7" class="px-6 py-10 text-center text-gray-500 dark:text-gray-400">
+                                        No career found.
+                                    </td>
+                                </tr>
+
+                            @endforelse
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
 
     </div>
+
 @endsection

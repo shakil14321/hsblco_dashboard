@@ -3,45 +3,79 @@
 @section('content')
     <div class="p-6">
 
-        <div class="bg-white p-6 rounded-xl shadow">
+        <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-[#182235]">
 
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold">Blog Details</h2>
+            <div class="mb-6 flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
+                        Blog Details
+                    </h2>
+                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                        View blog title, image, author and description
+                    </p>
+                </div>
 
                 <a href="{{ route('admin.blogs.index') }}"
-                   class="bg-gray-200 text-gray-700 px-5 py-2 rounded-lg">
+                   class="inline-flex h-11 items-center justify-center rounded-lg border border-gray-300 bg-gray-100 px-5 text-sm font-medium text-gray-700 transition hover:bg-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700">
                     Back
                 </a>
             </div>
 
             @if($blog->image)
-                <img src="{{ asset('storage/'.$blog->image) }}"
-                     class="w-full max-h-80 object-cover rounded-xl mb-6">
+                <div class="mb-6 overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 dark:border-gray-700 dark:bg-[#111827]">
+                    <img src="{{ asset('storage/'.$blog->image) }}"
+                         alt="{{ $blog->title }}"
+                         class="h-[360px] w-full object-contain p-4">
+                </div>
             @endif
 
-            <h1 class="text-3xl font-bold mb-3">
-                {{ $blog->title }}
-            </h1>
+            <div class="mb-6 rounded-2xl border border-gray-200 bg-gray-50 p-5 dark:border-gray-700 dark:bg-[#111827]">
 
-            <div class="text-sm text-gray-500 mb-6">
-                {{ $blog->author_name ?? 'Unknown Author' }}
-                @if($blog->publish_date)
-                    • {{ $blog->publish_date->format('M d, Y') }}
-                @endif
-            </div>
+                <h1 class="text-3xl font-bold text-gray-800 dark:text-white">
+                    {{ $blog->title }}
+                </h1>
 
-            <div class="mb-6">
-                <h4 class="text-sm text-gray-500 mb-1">Short Description</h4>
-                <p class="text-gray-700">
-                    {{ $blog->short_description }}
-                </p>
-            </div>
+                <div class="mt-3 flex flex-wrap items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
 
-            <div>
-                <h4 class="text-sm text-gray-500 mb-1">Description</h4>
-                <div class="text-gray-700 leading-7 bg-gray-50 p-4 rounded-lg">
-                    {!! nl2br(e($blog->description)) !!}
+                <span>
+                    <strong class="text-gray-700 dark:text-gray-300">Author:</strong>
+                    {{ $blog->author_name ?? 'Unknown Author' }}
+                </span>
+
+                    @if($blog->publish_date)
+                        <span class="hidden sm:inline">•</span>
+                        <span>
+                        <strong class="text-gray-700 dark:text-gray-300">Publish Date:</strong>
+                        {{ $blog->publish_date->format('M d, Y') }}
+                    </span>
+                    @endif
+
                 </div>
+
+            </div>
+
+            <div class="grid grid-cols-1 gap-6">
+
+                <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-[#111827]">
+                    <h4 class="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                        Short Description
+                    </h4>
+
+                    <p class="text-base leading-7 text-gray-700 dark:text-gray-300">
+                        {{ $blog->short_description ?: 'No short description available.' }}
+                    </p>
+                </div>
+
+                <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-[#111827]">
+                    <h4 class="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                        Description
+                    </h4>
+
+                    <div class="prose max-w-none text-base leading-8 text-gray-700 dark:text-gray-300">
+                        {!! nl2br(e($blog->description)) !!}
+                    </div>
+                </div>
+
             </div>
 
         </div>

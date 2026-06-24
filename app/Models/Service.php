@@ -27,4 +27,9 @@ class Service extends Model
     {
         return $this->hasMany(ServiceFeature::class, 'service_id');
     }
+
+    public function quotations()
+    {
+        return $this->hasMany(Quotation::class);
+    }
 }

@@ -1,93 +1,168 @@
 @extends('layouts.master')
 
 @section('content')
-    <div class="p-6">
 
-        <div class="flex items-center justify-between mb-6">
-            <h1 class="text-2xl font-bold text-gray-800">Hero Features</h1>
+    <div class="px-6 py-8">
+
+        <div class="mb-6 flex items-center justify-between">
+            <h1 class="text-2xl font-semibold text-gray-800 dark:text-white">
+                Hero Features
+            </h1>
 
             <a href="{{ route('admin.hero-features.create') }}"
-               class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+               class="inline-flex items-center rounded-lg bg-blue-600 px-5 py-3 text-sm font-medium text-white hover:bg-blue-700 transition">
                 Add Feature
             </a>
         </div>
 
         @if(session('success'))
-            <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">
+            <div class="mb-5 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-green-700 dark:border-green-800 dark:bg-green-900/20 dark:text-green-400">
                 {{ session('success') }}
             </div>
         @endif
 
-        <div class="bg-white rounded-xl shadow overflow-hidden">
-            <table class="w-full">
-                <thead class="bg-gray-100">
-                <tr>
-                    <th class="px-4 py-3 text-left">Slide</th>
-                    <th class="px-4 py-3 text-left">Title</th>
-                    <th class="px-4 py-3 text-left">Icon</th>
-                    <th class="px-4 py-3 text-left">Position</th>
-                    <th class="px-4 py-3 text-left">Status</th>
-                    <th class="px-4 py-3 text-right">Action</th>
-                </tr>
-                </thead>
+        <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-[#101828]">
 
-                <tbody class="divide-y">
-                @forelse($features as $feature)
-                    <tr>
-                        <td class="px-4 py-3">
-                            {{ $feature->heroSlide?->title ?? '-' }}
-                        </td>
+            <div class="border-b border-gray-200 px-6 py-5 dark:border-gray-800">
+                <h2 class="text-lg font-semibold text-gray-800 dark:text-white">
+                    Hero Features Table
+                </h2>
+            </div>
 
-                        <td class="px-4 py-3">
-                            {{ $feature->title }}
-                        </td>
+            <div class="p-6">
 
-                        <td class="px-4 py-3">
-                            {{ $feature->icon ?? '-' }}
-                        </td>
+                <div class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-[#182132]">
 
-                        <td class="px-4 py-3">
-                            {{ $feature->position }}
-                        </td>
+                    <div class="overflow-x-auto">
 
-                        <td class="px-4 py-3">
-                            @if($feature->status)
-                                <span class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-700">Active</span>
-                            @else
-                                <span class="px-3 py-1 text-xs rounded-full bg-red-100 text-red-700">Inactive</span>
-                            @endif
-                        </td>
+                        <table class="min-w-full">
 
-                        <td class="px-4 py-3 text-right">
-                            <a href="{{ route('admin.hero-features.edit', $feature->id) }}"
-                               class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600">
-                                Edit
-                            </a>
+                            <thead>
+                            <tr class="border-b border-gray-200 dark:border-gray-700">
 
-                            <form action="{{ route('admin.hero-features.destroy', $feature->id) }}"
-                                  method="POST"
-                                  class="inline-block"
-                                  onsubmit="return confirm('Are you sure?')">
-                                @csrf
-                                @method('DELETE')
+                                <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Slide
+                                </th>
 
-                                <button class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">
-                                    Delete
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="6" class="px-4 py-6 text-center text-gray-500">
-                            No hero feature found.
-                        </td>
-                    </tr>
-                @endforelse
-                </tbody>
+                                <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Title
+                                </th>
 
-            </table>
+                                <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Icon
+                                </th>
+
+                                <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Position
+                                </th>
+
+                                <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Status
+                                </th>
+
+                                <th class="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Action
+                                </th>
+
+                            </tr>
+                            </thead>
+
+                            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+
+                            @forelse($features as $feature)
+
+                                <tr class="transition hover:bg-gray-50 dark:hover:bg-gray-800/50">
+
+                                    <td class="px-6 py-5 text-sm text-gray-600 dark:text-gray-300">
+                                        {{ $feature->heroSlide?->title ?? '-' }}
+                                    </td>
+
+                                    <td class="px-6 py-5 text-sm font-semibold text-gray-800 dark:text-white">
+                                        {{ $feature->title }}
+                                    </td>
+
+                                    <td class="px-6 py-5 text-sm text-gray-600 dark:text-gray-300">
+                                        {{ $feature->icon ?? '-' }}
+                                    </td>
+
+                                    <td class="px-6 py-5 text-sm text-gray-600 dark:text-gray-300">
+                                        {{ $feature->position }}
+                                    </td>
+
+                                    <td class="px-6 py-5">
+
+                                        @if($feature->status)
+
+                                            <span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700 dark:bg-green-500/15 dark:text-green-400">
+                                            Active
+                                        </span>
+
+                                        @else
+
+                                            <span class="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-medium text-red-700 dark:bg-red-500/15 dark:text-red-400">
+                                            Inactive
+                                        </span>
+
+                                        @endif
+
+                                    </td>
+
+                                    <td class="px-6 py-5">
+
+                                        <div class="flex justify-end gap-2">
+
+                                            <a href="{{ route('admin.hero-features.edit', $feature->id) }}"
+                                               class="rounded-lg bg-amber-500 px-3 py-2 text-sm font-medium text-white hover:bg-amber-600 transition">
+                                                Edit
+                                            </a>
+
+                                            <form action="{{ route('admin.hero-features.destroy', $feature->id) }}"
+                                                  method="POST"
+                                                  onsubmit="return confirm('Are you sure?')">
+
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="submit"
+                                                        class="rounded-lg bg-red-600 px-3 py-2 text-sm font-medium text-white hover:bg-red-700 transition">
+                                                    Delete
+                                                </button>
+
+                                            </form>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                            @empty
+
+                                <tr>
+
+                                    <td colspan="6"
+                                        class="px-6 py-10 text-center text-gray-500 dark:text-gray-400">
+
+                                        No hero feature found.
+
+                                    </td>
+
+                                </tr>
+
+                            @endforelse
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
     </div>
+
 @endsection

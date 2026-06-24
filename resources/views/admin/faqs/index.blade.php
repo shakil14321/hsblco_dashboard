@@ -2,98 +2,153 @@
 
 @section('content')
 
-    <div class="p-6">
+    <div class="px-6 py-8">
 
-        <div class="flex justify-between items-center mb-6">
-
-            <h2 class="text-2xl font-bold">
+        <div class="mb-6 flex items-center justify-between">
+            <h1 class="text-2xl font-semibold text-gray-800 dark:text-white">
                 FAQs
-            </h2>
+            </h1>
 
             <a href="{{ route('admin.faqs.create') }}"
-               class="bg-blue-600 text-white px-5 py-2 rounded-lg">
+               class="inline-flex items-center rounded-lg bg-blue-600 px-5 py-3 text-sm font-medium text-white hover:bg-blue-700 transition">
                 Add FAQ
             </a>
-
         </div>
 
-        <div class="bg-white rounded-xl shadow overflow-hidden">
+        @if(session('success'))
+            <div class="mb-5 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-green-700 dark:border-green-800 dark:bg-green-900/20 dark:text-green-400">
+                {{ session('success') }}
+            </div>
+        @endif
 
-            <table class="w-full">
+        <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-[#101828]">
 
-                <thead class="bg-slate-100">
-                <tr>
-                    <th class="p-4 text-left">Question</th>
-                    <th class="p-4 text-left">Position</th>
-                    <th class="p-4 text-left">Status</th>
-                    <th class="p-4 text-right">Action</th>
-                </tr>
-                </thead>
+            <div class="border-b border-gray-200 px-6 py-5 dark:border-gray-800">
+                <h2 class="text-lg font-semibold text-gray-800 dark:text-white">
+                    FAQ Table
+                </h2>
+            </div>
 
-                <tbody>
+            <div class="p-6">
 
-                @foreach($faqs as $faq)
+                <div class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-[#182132]">
 
-                    <tr class="border-t">
+                    <div class="overflow-x-auto">
 
-                        <td class="p-4">
-                            {{ $faq->question }}
-                        </td>
+                        <table class="min-w-full">
 
-                        <td class="p-4">
-                            {{ $faq->position }}
-                        </td>
+                            <thead>
+                            <tr class="border-b border-gray-200 dark:border-gray-700">
 
-                        <td class="p-4">
+                                <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Question
+                                </th>
 
-                            @if($faq->status)
-                                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
-                                Active
-                            </span>
-                            @else
-                                <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">
-                                Inactive
-                            </span>
-                            @endif
+                                <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Position
+                                </th>
 
-                        </td>
+                                <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Status
+                                </th>
 
-                        <td class="p-4 text-right">
+                                <th class="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Action
+                                </th>
 
-                            <a href="{{ route('admin.faqs.edit',$faq->id) }}"
-                               class="bg-yellow-500 text-white px-3 py-2 rounded">
-                                Edit
-                            </a>
+                            </tr>
+                            </thead>
 
-                            <a href="{{ route('admin.faqs.show',$faq->id) }}"
-                               class="bg-slate-600 text-white px-3 py-2 rounded">
-                                View
-                            </a>
+                            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
 
-                            <form action="{{ route('admin.faqs.destroy',$faq->id) }}"
-                                  method="POST"
-                                  class="inline-block">
+                            @forelse($faqs as $faq)
 
-                                @csrf
-                                @method('DELETE')
+                                <tr class="transition hover:bg-gray-50 dark:hover:bg-gray-800/50">
 
-                                <button
-                                    onclick="return confirm('Delete FAQ?')"
-                                    class="bg-red-600 text-white px-3 py-2 rounded">
-                                    Delete
-                                </button>
+                                    <td class="px-6 py-5 text-sm font-semibold text-gray-800 dark:text-white">
+                                        {{ $faq->question }}
+                                    </td>
 
-                            </form>
+                                    <td class="px-6 py-5 text-sm text-gray-600 dark:text-gray-300">
+                                        {{ $faq->position }}
+                                    </td>
 
-                        </td>
+                                    <td class="px-6 py-5">
 
-                    </tr>
+                                        @if($faq->status)
 
-                @endforeach
+                                            <span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700 dark:bg-green-500/15 dark:text-green-400">
+                                            Active
+                                        </span>
 
-                </tbody>
+                                        @else
 
-            </table>
+                                            <span class="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-medium text-red-700 dark:bg-red-500/15 dark:text-red-400">
+                                            Inactive
+                                        </span>
+
+                                        @endif
+
+                                    </td>
+
+                                    <td class="px-6 py-5">
+
+                                        <div class="flex justify-end gap-2">
+
+                                            <a href="{{ route('admin.faqs.edit',$faq->id) }}"
+                                               class="rounded-lg bg-amber-500 px-3 py-2 text-sm font-medium text-white hover:bg-amber-600 transition">
+                                                Edit
+                                            </a>
+
+                                            <a href="{{ route('admin.faqs.show',$faq->id) }}"
+                                               class="rounded-lg bg-slate-600 px-3 py-2 text-sm font-medium text-white hover:bg-slate-700 transition">
+                                                View
+                                            </a>
+
+                                            <form action="{{ route('admin.faqs.destroy',$faq->id) }}"
+                                                  method="POST"
+                                                  onsubmit="return confirm('Delete FAQ?')">
+
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="submit"
+                                                        class="rounded-lg bg-red-600 px-3 py-2 text-sm font-medium text-white hover:bg-red-700 transition">
+                                                    Delete
+                                                </button>
+
+                                            </form>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                            @empty
+
+                                <tr>
+
+                                    <td colspan="4"
+                                        class="px-6 py-10 text-center text-gray-500 dark:text-gray-400">
+
+                                        No FAQ found.
+
+                                    </td>
+
+                                </tr>
+
+                            @endforelse
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 

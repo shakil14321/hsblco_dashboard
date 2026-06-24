@@ -3,81 +3,113 @@
 @section('content')
     <div class="p-6">
 
-        <div class="bg-white p-6 rounded-xl shadow">
+        <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-[#182235]">
 
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold">Client Details</h2>
+            <div class="mb-6 flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
+                        Client Details
+                    </h2>
+                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                        View client company, logo and website information
+                    </p>
+                </div>
 
                 <a href="{{ route('admin.clients.index') }}"
-                   class="bg-gray-200 text-gray-700 px-5 py-2 rounded-lg">
+                   class="inline-flex h-11 items-center justify-center rounded-lg border border-gray-300 bg-gray-100 px-5 text-sm font-medium text-gray-700 transition hover:bg-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700">
                     Back
                 </a>
             </div>
 
-            <div class="flex gap-6 items-start">
+            <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
 
-                <div>
+                <div class="rounded-2xl border border-gray-200 bg-gray-50 p-5 text-center dark:border-gray-700 dark:bg-[#111827]">
+
                     @if($client->logo)
                         <img src="{{ asset('storage/'.$client->logo) }}"
-                             class="w-44 h-32 object-contain rounded-xl border bg-gray-50">
+                             class="mx-auto h-32 w-44 rounded-xl border border-gray-200 bg-white object-contain p-3 dark:border-gray-700 dark:bg-white">
                     @else
-                        <div class="w-44 h-32 rounded-xl border bg-gray-50 flex items-center justify-center text-gray-400">
+                        <div class="mx-auto flex h-32 w-44 items-center justify-center rounded-xl border border-gray-200 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800">
                             No Logo
                         </div>
                     @endif
-                </div>
 
-                <div class="flex-1 space-y-4">
+                    <h3 class="mt-5 text-2xl font-bold text-gray-800 dark:text-white">
+                        {{ $client->company_name }}
+                    </h3>
 
-                    <div>
-                        <h3 class="text-2xl font-bold">
-                            {{ $client->company_name }}
-                        </h3>
-                    </div>
-
-                    <div>
-                        <strong>Website:</strong>
-                        @if($client->website_url)
-                            <a href="{{ $client->website_url }}" target="_blank"
-                               class="text-blue-600 hover:underline">
-                                {{ $client->website_url }}
-                            </a>
-                        @else
-                            -
-                        @endif
-                    </div>
-
-                    <div>
-                        <strong>Position:</strong>
-                        {{ $client->position }}
-                    </div>
-
-                    <div>
-                        <strong>Status:</strong>
+                    <div class="mt-4">
                         @if($client->status)
-                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
+                            <span class="rounded-full bg-green-100 px-3 py-1 text-sm text-green-700 dark:bg-green-500/15 dark:text-green-400">
                             Active
                         </span>
                         @else
-                            <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">
+                            <span class="rounded-full bg-red-100 px-3 py-1 text-sm text-red-700 dark:bg-red-500/15 dark:text-red-400">
                             Inactive
                         </span>
                         @endif
                     </div>
 
-                    <div class="flex gap-3 pt-4">
+                </div>
+
+                <div class="lg:col-span-2 space-y-6">
+
+                    <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+
+                        <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-[#111827]">
+                            <h4 class="text-sm text-gray-500 dark:text-gray-400">Website</h4>
+
+                            <p class="mt-2 break-all font-medium">
+                                @if($client->website_url)
+                                    <a href="{{ $client->website_url }}"
+                                       target="_blank"
+                                       class="text-blue-600 hover:underline dark:text-blue-400">
+                                        {{ $client->website_url }}
+                                    </a>
+                                @else
+                                    <span class="text-gray-800 dark:text-white">-</span>
+                                @endif
+                            </p>
+                        </div>
+
+                        <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-[#111827]">
+                            <h4 class="text-sm text-gray-500 dark:text-gray-400">Position</h4>
+                            <p class="mt-2 font-medium text-gray-800 dark:text-white">
+                                {{ $client->position }}
+                            </p>
+                        </div>
+
+                        <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-[#111827]">
+                            <h4 class="text-sm text-gray-500 dark:text-gray-400">Status</h4>
+
+                            <div class="mt-2">
+                                @if($client->status)
+                                    <span class="rounded-full bg-green-100 px-3 py-1 text-sm text-green-700 dark:bg-green-500/15 dark:text-green-400">
+                                    Active
+                                </span>
+                                @else
+                                    <span class="rounded-full bg-red-100 px-3 py-1 text-sm text-red-700 dark:bg-red-500/15 dark:text-red-400">
+                                    Inactive
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="flex gap-3">
                         <a href="{{ route('admin.clients.edit', $client->id) }}"
-                           class="bg-yellow-500 text-white px-5 py-2 rounded-lg">
+                           class="inline-flex h-11 items-center justify-center rounded-lg bg-yellow-500 px-5 text-sm font-medium text-white transition hover:bg-yellow-600">
                             Edit
                         </a>
 
-                        <form action="{{ route('admin.clients.destroy', $client->id) }}"
-                              method="POST">
+                        <form action="{{ route('admin.clients.destroy', $client->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
 
-                            <button onclick="return confirm('Delete Client?')"
-                                    class="bg-red-600 text-white px-5 py-2 rounded-lg">
+                            <button type="submit"
+                                    onclick="return confirm('Delete Client?')"
+                                    class="inline-flex h-11 items-center justify-center rounded-lg bg-red-600 px-5 text-sm font-medium text-white transition hover:bg-red-700">
                                 Delete
                             </button>
                         </form>

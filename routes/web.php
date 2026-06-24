@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\CareerController;
 use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\NewsletterSubscriberController;
 use App\Http\Controllers\Admin\WebsiteSettingController;
+use App\Http\Controllers\Admin\QuotationController;
 
 
 
@@ -72,6 +73,14 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('website-settings', [WebsiteSettingController::class, 'edit'])->name('website-settings.edit');
     Route::put('website-settings', [WebsiteSettingController::class, 'update'])->name('website-settings.update');
+
+    Route::get('/quotations', [QuotationController::class, 'index'])->name('quotations.index');
+    Route::get('/quotations/{id}', [QuotationController::class, 'show'])->name('quotations.show');
+    Route::delete('/quotations/{id}', [QuotationController::class, 'destroy'])->name('quotations.destroy');
+
+    Route::get('/quotations/{id}/send-mail', [QuotationController::class, 'sendMailForm'])->name('quotations.send-mail.form');
+    Route::post('/quotations/{id}/send-mail', [QuotationController::class, 'sendMail'])->name('quotations.send-mail');
+    Route::get('/quotation-estimates/{id}/pdf', [QuotationController::class, 'estimatePdf'])->name('quotations.estimate.pdf');
 
 
 });

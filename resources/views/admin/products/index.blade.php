@@ -2,117 +2,161 @@
 
 @section('content')
 
-    <div class="p-6">
+    <div class="px-6 py-8">
 
-        <div class="flex justify-between mb-6">
-
-            <h2 class="text-2xl font-bold">
+        <div class="mb-6 flex items-center justify-between">
+            <h1 class="text-2xl font-semibold text-gray-800 dark:text-white">
                 Products
-            </h2>
+            </h1>
 
-            <a
-                href="{{ route('admin.products.create') }}"
-                class="bg-blue-600 text-white px-5 py-2 rounded-lg">
-
+            <a href="{{ route('admin.products.create') }}"
+               class="inline-flex items-center rounded-lg bg-blue-600 px-5 py-3 text-sm font-medium text-white hover:bg-blue-700 transition">
                 Add Product
-
             </a>
-
         </div>
 
-        <div class="bg-white rounded-xl shadow overflow-hidden">
+        @if(session('success'))
+            <div class="mb-5 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-green-700 dark:border-green-800 dark:bg-green-900/20 dark:text-green-400">
+                {{ session('success') }}
+            </div>
+        @endif
 
-            <table class="w-full">
+        <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-[#101828]">
 
-                <thead class="bg-slate-100">
+            <div class="border-b border-gray-200 px-6 py-5 dark:border-gray-800">
+                <h2 class="text-lg font-semibold text-gray-800 dark:text-white">
+                    Products Table
+                </h2>
+            </div>
 
-                <tr>
+            <div class="p-6">
 
-                    <th class="p-4 text-left">
-                        Image
-                    </th>
+                <div class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-[#182132]">
 
-                    <th class="p-4 text-left">
-                        Name
-                    </th>
+                    <div class="overflow-x-auto">
 
-                    <th class="p-4 text-left">
-                        Category
-                    </th>
+                        <table class="min-w-full">
 
-                    <th class="p-4 text-left">
-                        Featured
-                    </th>
+                            <thead>
+                            <tr class="border-b border-gray-200 dark:border-gray-700">
 
-                    <th class="p-4 text-left">
-                        Status
-                    </th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Image
+                                </th>
 
-                    <th class="p-4 text-right">
-                        Action
-                    </th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Name
+                                </th>
 
-                </tr>
+                                <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Category
+                                </th>
 
-                </thead>
+                                <th class="px-6 py-4 text-center text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Featured
+                                </th>
 
-                <tbody>
+                                <th class="w-[130px] px-6 py-4 text-center text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Status
+                                </th>
 
-                @foreach($products as $product)
+                                <th class="w-[220px] px-6 py-4 text-center text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                    Action
+                                </th>
 
-                    <tr class="border-t">
+                            </tr>
+                            </thead>
 
-                        <td class="p-4">
+                            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
 
-                            @if($product->image)
+                            @forelse($products as $product)
 
-                                <img
-                                    src="{{ asset('storage/'.$product->image) }}"
-                                    class="w-16 h-16 object-cover rounded">
+                                <tr class="transition hover:bg-gray-50 dark:hover:bg-gray-800/50">
 
-                            @endif
+                                    <td class="px-6 py-5">
+                                        @if($product->image)
+                                            <img src="{{ asset('storage/'.$product->image) }}"
+                                                 class="h-16 w-16 rounded-lg border border-gray-200 object-cover dark:border-gray-700"
+                                                 alt="{{ $product->name }}">
+                                        @else
+                                            <span class="text-sm text-gray-500 dark:text-gray-400">
+                                            -
+                                        </span>
+                                        @endif
+                                    </td>
 
-                        </td>
+                                    <td class="px-6 py-5 text-sm font-semibold text-gray-800 dark:text-white">
+                                        {{ $product->name }}
+                                    </td>
 
-                        <td class="p-4">
-                            {{ $product->name }}
-                        </td>
+                                    <td class="px-6 py-5 text-sm text-gray-600 dark:text-gray-300">
+                                        {{ $product->category?->name ?? '-' }}
+                                    </td>
 
-                        <td class="p-4">
-                            {{ $product->category?->name }}
-                        </td>
+                                    <td class="px-6 py-5 text-center">
+                                        @if($product->featured)
+                                            <span class="inline-flex rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700 dark:bg-blue-500/15 dark:text-blue-400">
+                                            Yes
+                                        </span>
+                                        @else
+                                            <span class="inline-flex rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 dark:bg-gray-500/15 dark:text-gray-400">
+                                            No
+                                        </span>
+                                        @endif
+                                    </td>
 
-                        <td class="p-4">
-                            {{ $product->featured ? 'Yes' : 'No' }}
-                        </td>
+                                    <td class="px-6 py-5 text-center">
+                                        @if($product->status)
+                                            <span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700 dark:bg-green-500/15 dark:text-green-400">
+                                            Active
+                                        </span>
+                                        @else
+                                            <span class="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-medium text-red-700 dark:bg-red-500/15 dark:text-red-400">
+                                            Inactive
+                                        </span>
+                                        @endif
+                                    </td>
 
-                        <td class="p-4">
-                            {{ $product->status ? 'Active' : 'Inactive' }}
-                        </td>
+                                    <td class="px-6 py-5 text-center">
 
-                        <td class="p-4 text-right">
+                                        <div class="inline-flex items-center gap-2">
 
-                            <a
-                                href="{{ route('admin.products.show',$product->id) }}"
-                                class="bg-slate-600 text-white px-3 py-2 rounded">
-                                View
-                            </a>
+                                            <a href="{{ route('admin.products.show',$product->id) }}"
+                                               class="rounded-lg bg-slate-600 px-3 py-2 text-sm font-medium text-white hover:bg-slate-700 transition">
+                                                View
+                                            </a>
 
-                            <a
-                                href="{{ route('admin.products.edit',$product->id) }}"
-                                class="bg-yellow-500 text-white px-3 py-2 rounded">
-                                Edit
-                            </a>
+                                            <a href="{{ route('admin.products.edit',$product->id) }}"
+                                               class="rounded-lg bg-amber-500 px-3 py-2 text-sm font-medium text-white hover:bg-amber-600 transition">
+                                                Edit
+                                            </a>
 
-                        </td>
+                                        </div>
 
-                    </tr>
+                                    </td>
 
-                @endforeach
+                                </tr>
 
-                </tbody>
+                            @empty
 
-            </table>
+                                <tr>
+                                    <td colspan="6"
+                                        class="px-6 py-10 text-center text-gray-500 dark:text-gray-400">
+                                        No product found.
+                                    </td>
+                                </tr>
+
+                            @endforelse
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 

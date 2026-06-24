@@ -1,109 +1,151 @@
 @extends('layouts.master')
 
 @section('content')
-    <div class="p-6">
 
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold">Clients</h2>
+    <div class="px-6 py-8">
+
+        <div class="mb-6 flex items-center justify-between">
+            <h1 class="text-2xl font-semibold text-gray-800 dark:text-white">
+                Clients
+            </h1>
 
             <a href="{{ route('admin.clients.create') }}"
-               class="bg-blue-600 text-white px-5 py-2 rounded-lg">
+               class="inline-flex items-center rounded-lg bg-blue-600 px-5 py-3 text-sm font-medium text-white hover:bg-blue-700 transition">
                 Add Client
             </a>
         </div>
 
         @if(session('success'))
-            <div class="mb-4 bg-green-100 text-green-700 p-4 rounded-lg">
+            <div class="mb-5 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-green-700 dark:border-green-800 dark:bg-green-900/20 dark:text-green-400">
                 {{ session('success') }}
             </div>
         @endif
 
-        <div class="bg-white rounded-xl shadow overflow-hidden">
-            <table class="w-full">
-                <thead class="bg-slate-100">
-                <tr>
-                    <th class="p-4 text-left">Logo</th>
-                    <th class="p-4 text-left">Company Name</th>
-                    <th class="p-4 text-left">Website</th>
-                    <th class="p-4 text-left">Position</th>
-                    <th class="p-4 text-left">Status</th>
-                    <th class="p-4 text-right">Action</th>
-                </tr>
-                </thead>
+        <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-[#101828]">
 
-                <tbody>
-                @forelse($clients as $client)
-                    <tr class="border-t">
-                        <td class="p-4">
-                            @if($client->logo)
-                                <img src="{{ asset('storage/'.$client->logo) }}"
-                                     class="w-20 h-14 object-contain rounded border bg-gray-50">
-                            @else
-                                -
-                            @endif
-                        </td>
+            <div class="border-b border-gray-200 px-6 py-5 dark:border-gray-800">
+                <h2 class="text-lg font-semibold text-gray-800 dark:text-white">
+                    Clients Table
+                </h2>
+            </div>
 
-                        <td class="p-4">{{ $client->company_name }}</td>
+            <div class="p-6">
+                <div class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-[#182132]">
+                    <div class="overflow-x-auto">
 
-                        <td class="p-4">
-                            @if($client->website_url)
-                                <a href="{{ $client->website_url }}" target="_blank"
-                                   class="text-blue-600 hover:underline">
-                                    Visit
-                                </a>
-                            @else
-                                -
-                            @endif
-                        </td>
+                        <table class="min-w-full">
 
-                        <td class="p-4">{{ $client->position }}</td>
+                            <thead>
+                            <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Logo</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Company Name</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Website</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Position</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Status</th>
+                                <th class="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Action</th>
+                            </tr>
+                            </thead>
 
-                        <td class="p-4">
-                            @if($client->status)
-                                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">Active</span>
-                            @else
-                                <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">Inactive</span>
-                            @endif
-                        </td>
+                            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
 
-                        <td class="p-4 text-right">
-                            <a href="{{ route('admin.clients.show',$client->id) }}"
-                               class="bg-slate-600 text-white px-3 py-2 rounded">
-                                View
-                            </a>
+                            @forelse($clients as $client)
 
-                            <a href="{{ route('admin.clients.edit',$client->id) }}"
-                               class="bg-yellow-500 text-white px-3 py-2 rounded">
-                                Edit
-                            </a>
+                                <tr class="transition hover:bg-gray-50 dark:hover:bg-gray-800/50">
 
-                            <form action="{{ route('admin.clients.destroy',$client->id) }}"
-                                  method="POST"
-                                  class="inline-block">
-                                @csrf
-                                @method('DELETE')
+                                    <td class="px-6 py-5">
+                                        @if($client->logo)
+                                            <div class="flex h-14 w-20 items-center justify-center rounded-lg border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
+                                                <img src="{{ asset('storage/'.$client->logo) }}"
+                                                     class="h-full w-full rounded-lg object-contain p-1"
+                                                     alt="Client Logo">
+                                            </div>
+                                        @else
+                                            <span class="text-sm text-gray-500 dark:text-gray-400">-</span>
+                                        @endif
+                                    </td>
 
-                                <button onclick="return confirm('Delete Client?')"
-                                        class="bg-red-600 text-white px-3 py-2 rounded">
-                                    Delete
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="6" class="p-6 text-center text-gray-500">
-                            No client found.
-                        </td>
-                    </tr>
-                @endforelse
-                </tbody>
-            </table>
+                                    <td class="px-6 py-5 text-sm font-semibold text-gray-800 dark:text-white">
+                                        {{ $client->company_name }}
+                                    </td>
+
+                                    <td class="px-6 py-5 text-sm">
+                                        @if($client->website_url)
+                                            <a href="{{ $client->website_url }}"
+                                               target="_blank"
+                                               class="font-medium text-blue-600 hover:underline dark:text-blue-400">
+                                                Visit
+                                            </a>
+                                        @else
+                                            <span class="text-gray-500 dark:text-gray-400">-</span>
+                                        @endif
+                                    </td>
+
+                                    <td class="px-6 py-5 text-sm text-gray-600 dark:text-gray-300">
+                                        {{ $client->position }}
+                                    </td>
+
+                                    <td class="px-6 py-5">
+                                        @if($client->status)
+                                            <span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700 dark:bg-green-500/15 dark:text-green-400">
+                                            Active
+                                        </span>
+                                        @else
+                                            <span class="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-medium text-red-700 dark:bg-red-500/15 dark:text-red-400">
+                                            Inactive
+                                        </span>
+                                        @endif
+                                    </td>
+
+                                    <td class="px-6 py-5">
+                                        <div class="flex justify-end gap-2">
+
+                                            <a href="{{ route('admin.clients.show',$client->id) }}"
+                                               class="rounded-lg bg-slate-600 px-3 py-2 text-sm font-medium text-white hover:bg-slate-700 transition">
+                                                View
+                                            </a>
+
+                                            <a href="{{ route('admin.clients.edit',$client->id) }}"
+                                               class="rounded-lg bg-amber-500 px-3 py-2 text-sm font-medium text-white hover:bg-amber-600 transition">
+                                                Edit
+                                            </a>
+
+                                            <form action="{{ route('admin.clients.destroy',$client->id) }}"
+                                                  method="POST"
+                                                  onsubmit="return confirm('Delete Client?')">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="submit"
+                                                        class="rounded-lg bg-red-600 px-3 py-2 text-sm font-medium text-white hover:bg-red-700 transition">
+                                                    Delete
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+
+                            @empty
+
+                                <tr>
+                                    <td colspan="6" class="px-6 py-10 text-center text-gray-500 dark:text-gray-400">
+                                        No client found.
+                                    </td>
+                                </tr>
+
+                            @endforelse
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
+
     </div>
 
-
-    <button class="btn btn-secondary">
-        Test DaisyUI
-    </button>
 @endsection
