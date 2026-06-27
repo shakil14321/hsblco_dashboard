@@ -8,7 +8,7 @@ class QuotationRepository
 {
     public function getAll()
     {
-        return Quotation::with('service')
+        return Quotation::with(['service', 'latestEstimate'])
             ->latest()
             ->paginate(20);
     }

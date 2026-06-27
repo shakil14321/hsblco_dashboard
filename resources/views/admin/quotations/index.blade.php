@@ -141,6 +141,13 @@
                                                 Send Mail
                                             </a>
 
+                                            @if($quotation->latestEstimate)
+                                                <a href="{{ route('admin.quotations.sent-quotation', $quotation->id) }}"
+                                                   class="rounded-lg bg-emerald-600 px-3 py-2 text-sm font-medium text-white transition hover:bg-emerald-700">
+                                                    View Sent Quotations
+                                                </a>
+                                            @endif
+
                                             <a href="{{ route('admin.quotations.show', $quotation->id) }}"
                                                class="rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white transition hover:bg-blue-700">
                                                 View

@@ -81,6 +81,11 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/quotations/{id}/send-mail', [QuotationController::class, 'sendMailForm'])->name('quotations.send-mail.form');
     Route::post('/quotations/{id}/send-mail', [QuotationController::class, 'sendMail'])->name('quotations.send-mail');
     Route::get('/quotation-estimates/{id}/pdf', [QuotationController::class, 'estimatePdf'])->name('quotations.estimate.pdf');
+    Route::get('/quotations/{id}/sent-quotation', [QuotationController::class, 'sentQuotation'])
+        ->name('quotations.sent-quotation');
+
+    Route::get('/quotations/{id}/sent-quotation-history', [QuotationController::class, 'sentQuotationHistory'])
+        ->name('quotations.sent-quotation-history');
 
 
 });

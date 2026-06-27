@@ -26,4 +26,9 @@ class Quotation extends Model
     {
         return $this->hasMany(QuotationEstimate::class);
     }
+
+    public function latestEstimate()
+    {
+        return $this->hasOne(QuotationEstimate::class)->latestOfMany();
+    }
 }

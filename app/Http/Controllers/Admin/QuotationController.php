@@ -101,4 +101,22 @@ class QuotationController extends Controller
 
         return $pdf->stream('quotation-estimate.pdf');
     }
+
+    public function sentQuotation($id)
+    {
+        $quotation = Quotation::with(['service', 'latestEstimate'])->findOrFail($id);
+
+        return view('admin.quotations.sent-quotation', compact('quotation'));
+    }
+
+    public function sentQuotationHistory($id)
+    {
+        $quotation = Quotation::with('service')->findOrFail($id);
+
+        $estimates = QuotationEstimate::where('quotation_id', $id)
+            ->latest()
+            ->paginate(20);
+
+        return view('admin.quotations.sent-quotation-history', compact('quotation', 'estimates'));
+    }
 }
